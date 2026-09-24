@@ -1,0 +1,17 @@
+title: Gondariya
+description: A simple Jekyll site for Gondariya.
+url: ""
+baseurl: ""
+lang: en
+
+markdown: kramdown
+theme: null
+permalink: pretty
+include:
+  - _pages
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
