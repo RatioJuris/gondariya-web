@@ -1,10 +1,28 @@
 ---
 layout: default
-title: About
-permalink: /about/
+
+title: "About Gonardiya"
+
+description: >
+  The meaning, provenance and contemporary identity
+  represented by Gonardiya.
+
+keywords:
+  - Gonardiya
+  - origin
+  - heritage
+  - legacy
+  - identity
+
+robots: "index,follow"
+
+jsonld:
+  "@context": "https://schema.org"
+  "@type": "AboutPage"
+  name: "About Gonardiya"
+  description: "The meaning, provenance and contemporary identity represented by Gonardiya."
 ---
 
-# About Gondariya
+# About Gonardiya
 
-Gondariya is building a clear, useful web presence for its visitors and
-community. This page is a starting point for sharing the organization's story.
+Your content goes here.
