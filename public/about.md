@@ -46,9 +46,9 @@ It expresses a relationship between place, memory, knowledge, identity and the p
 
 ## The Name
 
-**Gonardīya** is a Sanskrit designation associated with **Gonarda**. Lexicographical material explains the term literally as an inhabitant of or person associated with Gonarda, described in one tradition as a district in Oudh; another scholarly interpretation identifies Gonarda with the district of present-day Gonda. :contentReference[oaicite:1]{index=1}
+**Gonardīya** is a Sanskrit designation associated with **Gonarda**. Lexicographical material explains the term literally as an inhabitant of or person associated with Gonarda, described in one tradition as a district in Oudh; another scholarly interpretation identifies Gonarda with the district of present-day Gonda.
 
-The identification of ancient Gonarda with present-day Gonda should not be treated as an uncontested historical certainty. It is a scholarly interpretation with a documented history of debate. :contentReference[oaicite:2]{index=2}
+The identification of ancient Gonarda with present-day Gonda should not be treated as an uncontested historical certainty. It is a scholarly interpretation with a documented history of debate.
 
 For Gonardiya, that distinction is important.
 
@@ -56,9 +56,9 @@ The name draws upon the historical and linguistic idea of **belonging to Gonarda
 
 ## Gonardīya in the Grammatical Tradition
 
-The expression **गोनर्दीय आह** (*gonardīya āha*) occurs in the *Mahābhāṣya* at several locations, where it refers to a grammarian associated with the intellectual world of Patañjali's time. :contentReference[oaicite:3]{index=3}
+The expression **गोनर्दीय आह** (*gonardīya āha*) occurs in the *Mahābhāṣya* at several locations, where it refers to a grammarian associated with the intellectual world of Patañjali's time.
 
-Later grammatical tradition contains different interpretations of the designation. Some commentators and scholars have understood *Gonardīya* as a designation of Patañjali himself, associated with the idea that he was a native of Gonarda. Other interpretations identify the expression differently, including an association with the author of the Vārttikas. :contentReference[oaicite:4]{index=4}
+Later grammatical tradition contains different interpretations of the designation. Some commentators and scholars have understood *Gonardīya* as a designation of Patañjali himself, associated with the idea that he was a native of Gonarda. Other interpretations identify the expression differently, including an association with the author of the Vārttikas.
 
 This ambiguity is not something Gonardiya attempts to erase.
 
@@ -147,7 +147,7 @@ The objective is not to remain fixed in the past, but to carry something meaning
 
 ## Intellectual Identity
 
-The historical use of *Gonardīya* is particularly significant because it sits within a tradition of Sanskrit grammatical scholarship. The word is associated in the sources with a scholar in Patañjali's intellectual period, while later commentators developed differing explanations of precisely whom the designation identified. :contentReference[oaicite:5]{index=5}
+The historical use of *Gonardīya* is particularly significant because it sits within a tradition of Sanskrit grammatical scholarship. The word is associated in the sources with a scholar in Patañjali's intellectual period, while later commentators developed differing explanations of precisely whom the designation identified.
 
 That relationship between **place and knowledge** provides an important conceptual foundation for Gonardiya.
 
@@ -283,7 +283,7 @@ Gonardiya is therefore not intended to be a recreation of an ancient world.
 
 It is a contemporary identity informed by one.
 
-It acknowledges the historical idea of *Gonardīya*, recognises the scholarly uncertainty surrounding its precise historical associations, and carries forward its central conceptual relationship between **place, belonging and knowledge**. :contentReference[oaicite:6]{index=6}
+It acknowledges the historical idea of *Gonardīya*, recognises the scholarly uncertainty surrounding its precise historical associations, and carries forward its central conceptual relationship between **place, belonging and knowledge**.
 
 Through **Ronav Narayandas Gonardiya**, that idea receives a present-day personal expression.
 
