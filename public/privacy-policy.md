@@ -16,6 +16,8 @@ robots: "index,follow"
 
 canonical: "/privacy-policy/"
 
+permalink: /privacy-policy/
+
 og:
   title: "Privacy Policy | Gonardiya"
   description: "Privacy Policy governing the collection, use, storage, protection and processing of information."
