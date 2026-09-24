@@ -1,39 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ page.lang | default: site.lang | default: 'en-IN' }}">
 
 <head>
   {% include head.html %}
 </head>
 
-<body>
+<body class="min-h-screen bg-white text-slate-900 antialiased">
 
   {% include header.html %}
 
-  <main class="site-main">
-
-    <article class="page">
-
-      {% if page.title %}
-      <header class="page-header">
-        <h1>{{ page.title }}</h1>
-
-        {% if page.description %}
-        <p class="page-description">
-          {{ page.description }}
-        </p>
-        {% endif %}
-      </header>
-      {% endif %}
-
-      <div class="page-content">
-        {{ content }}
-      </div>
-
-    </article>
-
+  <main>
+    {{ content }}
   </main>
 
   {% include footer.html %}
 
 </body>
+
 </html>
