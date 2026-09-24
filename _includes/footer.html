@@ -1,16 +1,43 @@
-<footer class="border-t border-slate-900/5 bg-white">
+<footer class="relative mt-20 border-t border-slate-900/5 bg-white/70 backdrop-blur-xl">
 
-  <div
-    class="page-container flex min-h-[96px] flex-col justify-center gap-2 py-6 sm:flex-row sm:items-center sm:justify-between"
-  >
+  <div class="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-10">
 
-    <p class="m-0 text-sm text-slate-500">
-      © {{ site.time | date: "%Y" }} Gonardiya.
-    </p>
+    <div class="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
 
-    <p class="m-0 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
-      All rights reserved.
-    </p>
+      <div>
+
+        <div class="flex items-center gap-3">
+
+          <span
+            class="h-2.5 w-2.5 rounded-full bg-[#C89B3C] shadow-[0_0_18px_rgba(200,155,60,0.45)]"
+          ></span>
+
+          <span class="text-sm font-bold tracking-[-0.02em] text-[#0B1F3A]">
+            Gonardiya
+          </span>
+
+        </div>
+
+        <p class="mt-4 max-w-md text-sm leading-7 text-slate-500">
+          Origin, heritage, intellectual identity, continuity and legacy.
+        </p>
+
+      </div>
+
+
+      <div class="md:text-right">
+
+        <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">
+          Origin · Heritage · Continuity
+        </p>
+
+        <p class="mt-3 text-xs text-slate-400">
+          © {{ site.time | date: "%Y" }} Gonardiya
+        </p>
+
+      </div>
+
+    </div>
 
   </div>
 
