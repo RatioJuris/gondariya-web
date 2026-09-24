@@ -3,65 +3,667 @@
 
 <head>
   {% include head.html %}
+
+  <style>
+    /* =========================================================
+       GONARDIYA — MOTION SYSTEM
+       ========================================================= */
+
+    :root {
+      --g-navy: #0B1F3A;
+      --g-gold: #C89B3C;
+      --g-ivory: #F5F0E6;
+      --g-line: rgba(11, 31, 58, 0.08);
+    }
+
+    /* Ambient light */
+    .g-ambient {
+      position: absolute;
+      width: 42rem;
+      height: 42rem;
+      border-radius: 9999px;
+      pointer-events: none;
+      filter: blur(80px);
+      opacity: 0.34;
+      mix-blend-mode: multiply;
+      animation: g-float 14s ease-in-out infinite;
+    }
+
+    .g-ambient-one {
+      top: -18rem;
+      right: -14rem;
+      background:
+        radial-gradient(
+          circle,
+          rgba(200, 155, 60, 0.16) 0%,
+          rgba(200, 155, 60, 0) 70%
+        );
+    }
+
+    .g-ambient-two {
+      top: 24rem;
+      left: -24rem;
+      background:
+        radial-gradient(
+          circle,
+          rgba(11, 31, 58, 0.10) 0%,
+          rgba(11, 31, 58, 0) 70%
+        );
+      animation-delay: -6s;
+    }
+
+    @keyframes g-float {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate3d(18px, 24px, 0) scale(1.05);
+      }
+    }
+
+    /* Editorial grid */
+    .g-grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.28;
+
+      background-image:
+        linear-gradient(
+          to right,
+          rgba(11, 31, 58, 0.035) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          to bottom,
+          rgba(11, 31, 58, 0.025) 1px,
+          transparent 1px
+        );
+
+      background-size:
+        72px 72px,
+        72px 72px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black 0%,
+          transparent 75%
+        );
+    }
+
+    /* Header transformation */
+    .g-header {
+      transition:
+        background-color 300ms ease,
+        border-color 300ms ease,
+        box-shadow 300ms ease,
+        transform 300ms ease;
+    }
+
+    .g-header.scrolled {
+      background-color: rgba(255, 255, 255, 0.82);
+      border-color: rgba(11, 31, 58, 0.08);
+      box-shadow:
+        0 10px 30px rgba(11, 31, 58, 0.05);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    /* Scroll progress */
+    .g-progress {
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--g-gold);
+      transition: width 80ms linear;
+    }
+
+    /* Entry animation */
+    .g-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 800ms cubic-bezier(.22, 1, .36, 1),
+        transform 800ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .g-reveal.g-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .g-reveal-delay-1 {
+      transition-delay: 90ms;
+    }
+
+    .g-reveal-delay-2 {
+      transition-delay: 170ms;
+    }
+
+    .g-reveal-delay-3 {
+      transition-delay: 250ms;
+    }
+
+    /* Gold marker */
+    .g-marker {
+      position: relative;
+      display: inline-block;
+    }
+
+    .g-marker::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.5rem;
+      height: 1px;
+      background: var(--g-gold);
+      transform-origin: left;
+      transform: scaleX(0.15);
+      transition:
+        transform 700ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .g-marker:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Image hover */
+    .g-logo {
+      transition:
+        transform 350ms cubic-bezier(.22, 1, .36, 1),
+        opacity 250ms ease;
+    }
+
+    .g-logo:hover {
+      transform: translateY(-1px);
+      opacity: 0.88;
+    }
+
+    /* Navigation underline */
+    .g-nav-link {
+      position: relative;
+    }
+
+    .g-nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -7px;
+      height: 1px;
+      background: var(--g-gold);
+
+      transform: scaleX(0);
+      transform-origin: center;
+
+      transition:
+        transform 250ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .g-nav-link:hover::after,
+    .g-nav-link.is-active::after {
+      transform: scaleX(1);
+    }
+
+    /* CTA motion */
+    .g-button {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .g-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          120deg,
+          transparent 20%,
+          rgba(255, 255, 255, 0.15) 50%,
+          transparent 80%
+        );
+
+      transform: translateX(-120%);
+      transition:
+        transform 650ms cubic-bezier(.22, 1, .36, 1);
+
+      z-index: -1;
+    }
+
+    .g-button:hover::before {
+      transform: translateX(120%);
+    }
+
+    /* Reading surface */
+    .g-content {
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: rgb(71 85 105);
+    }
+
+    .g-content h2 {
+      margin-top: 4.5rem;
+      margin-bottom: 1.15rem;
+
+      color: var(--g-navy);
+
+      font-size: clamp(1.45rem, 2vw, 1.8rem);
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+    }
+
+    .g-content h3 {
+      margin-top: 2.8rem;
+      margin-bottom: 0.8rem;
+
+      color: var(--g-navy);
+
+      font-size: 1.12rem;
+      line-height: 1.4;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .g-content p {
+      margin-top: 0;
+      margin-bottom: 1.45rem;
+    }
+
+    .g-content ul,
+    .g-content ol {
+      margin-top: 1rem;
+      margin-bottom: 1.7rem;
+      padding-left: 1.5rem;
+    }
+
+    .g-content li {
+      margin: 0.5rem 0;
+    }
+
+    .g-content a {
+      color: var(--g-navy);
+      text-decoration-line: underline;
+      text-decoration-color: rgba(200, 155, 60, 0.7);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      transition:
+        color 180ms ease,
+        text-decoration-color 180ms ease;
+    }
+
+    .g-content a:hover {
+      color: #000f22;
+      text-decoration-color: var(--g-gold);
+    }
+
+    .g-content strong {
+      color: var(--g-navy);
+      font-weight: 650;
+    }
+
+    .g-content blockquote {
+      margin: 2.5rem 0;
+      padding: 1.25rem 1.4rem;
+
+      border-left: 2px solid var(--g-gold);
+
+      background: rgba(245, 240, 230, 0.46);
+      color: rgb(51 65 85);
+    }
+
+    .g-content hr {
+      margin: 4rem 0;
+      border: 0;
+      border-top: 1px solid var(--g-line);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .g-reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
 
-<body class="min-h-screen bg-white text-slate-900 antialiased">
+<body class="min-h-screen overflow-x-hidden bg-white text-slate-900 antialiased">
 
-  {% include header.html %}
+  <!-- Scroll progress -->
+  <div
+    id="g-progress"
+    class="g-progress"
+    aria-hidden="true"
+  ></div>
 
-  {% if page.title %}
 
-  <section class="page-container pt-20 pb-8 sm:pt-28">
+  <!-- =======================================================
+       HEADER
+       ======================================================= -->
 
-    {% unless page.url == "/" %}
+  <header
+    id="g-header"
+    class="g-header sticky top-0 z-50 border-b border-slate-900/5 bg-white"
+  >
 
-    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#C89B3C]">
-      Gonardiya
-    </p>
+    {% include header.html %}
 
-    <h1
-      class="max-w-4xl text-4xl font-semibold leading-tight tracking-[-0.045em] text-[#0B1F3A] sm:text-5xl lg:text-6xl"
-    >
-      {{ page.title }}
-    </h1>
+  </header>
 
-    {% if page.description %}
 
-    <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-500">
-      {{ page.description }}
-    </p>
+  <!-- =======================================================
+       BACKGROUND SYSTEM
+       ======================================================= -->
 
-    {% endif %}
+  <div
+    class="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+    aria-hidden="true"
+  >
 
-    {% endunless %}
+    <div class="g-grid"></div>
 
-  </section>
+    <div class="g-ambient g-ambient-one"></div>
+
+    <div class="g-ambient g-ambient-two"></div>
+
+  </div>
+
+
+  <!-- =======================================================
+       PAGE
+       ======================================================= -->
+
+  {% if page.url == "/" %}
+
+    <main>
+
+      {{ content }}
+
+    </main>
+
+  {% else %}
+
+    <main>
+
+      <!-- Page introduction -->
+
+      <section
+        class="page-container relative pt-20 pb-10 sm:pt-28 sm:pb-14 lg:pt-32"
+      >
+
+        <div class="max-w-5xl">
+
+          <div class="g-reveal">
+
+            <p
+              class="mb-5 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#C89B3C]"
+            >
+              Gonardiya
+            </p>
+
+          </div>
+
+
+          <div class="g-reveal g-reveal-delay-1">
+
+            <h1
+              class="max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.06em] text-[#0B1F3A] sm:text-6xl lg:text-7xl"
+            >
+              {{ page.title }}
+            </h1>
+
+          </div>
+
+
+          {% if page.description %}
+
+          <div class="g-reveal g-reveal-delay-2">
+
+            <p
+              class="mt-7 max-w-2xl text-lg leading-8 text-slate-500 sm:text-xl"
+            >
+              {{ page.description }}
+            </p>
+
+          </div>
+
+          {% endif %}
+
+
+          <div class="g-reveal g-reveal-delay-3 mt-10 flex items-center gap-4">
+
+            <span
+              class="h-px w-12 bg-[#C89B3C]"
+            ></span>
+
+            <span
+              class="text-[10px] font-medium uppercase tracking-[0.24em] text-slate-400"
+            >
+              Origin · Heritage · Continuity
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Thin editorial divider -->
+
+      <div class="page-container">
+
+        <div class="h-px bg-slate-900/7"></div>
+
+      </div>
+
+
+      <!-- Content -->
+
+      <section
+        class="page-container pt-12 pb-24 sm:pt-16 sm:pb-32 lg:pb-40"
+      >
+
+        <article
+          class="g-content g-reveal max-w-3xl"
+        >
+
+          {{ content }}
+
+        </article>
+
+      </section>
+
+    </main>
 
   {% endif %}
 
-  <main>
-
-    <div class="content-container pb-24 sm:pb-32">
-
-      {% unless page.url == "/" %}
-
-      <article class="markdown-content">
-
-        {{ content }}
-
-      </article>
-
-      {% else %}
-
-        {{ content }}
-
-      {% endunless %}
-
-    </div>
-
-  </main>
 
   {% include footer.html %}
+
+
+  <!-- =======================================================
+       MOTION
+       ======================================================= -->
+
+  <script>
+    (() => {
+      "use strict";
+
+      const header = document.getElementById("g-header");
+      const progress = document.getElementById("g-progress");
+
+      /* ---------------------------------------------
+         Header state
+      --------------------------------------------- */
+
+      const updateHeader = () => {
+        if (!header) return;
+
+        if (window.scrollY > 20) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      };
+
+
+      /* ---------------------------------------------
+         Scroll progress
+      --------------------------------------------- */
+
+      const updateProgress = () => {
+        if (!progress) return;
+
+        const scrollTop = window.scrollY;
+
+        const documentHeight =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+
+        const percentage =
+          documentHeight > 0
+            ? (scrollTop / documentHeight) * 100
+            : 0;
+
+        progress.style.width =
+          `${Math.min(100, Math.max(0, percentage))}%`;
+      };
+
+
+      /* ---------------------------------------------
+         Reveal system
+      --------------------------------------------- */
+
+      const revealElements =
+        document.querySelectorAll(".g-reveal");
+
+      if ("IntersectionObserver" in window) {
+
+        const observer =
+          new IntersectionObserver(
+            (entries, observer) => {
+
+              entries.forEach((entry) => {
+
+                if (!entry.isIntersecting) {
+                  return;
+                }
+
+                entry.target.classList.add("g-visible");
+
+                observer.unobserve(entry.target);
+
+              });
+
+            },
+            {
+              threshold: 0.08,
+              rootMargin: "0px 0px -40px 0px"
+            }
+          );
+
+        revealElements.forEach((element) => {
+          observer.observe(element);
+        });
+
+      } else {
+
+        revealElements.forEach((element) => {
+          element.classList.add("g-visible");
+        });
+
+      }
+
+
+      /* ---------------------------------------------
+         Active navigation
+      --------------------------------------------- */
+
+      const currentPath =
+        window.location.pathname.replace(/\/+$/, "") || "/";
+
+      document
+        .querySelectorAll(".g-nav-link")
+        .forEach((link) => {
+
+          const href = link.getAttribute("href");
+
+          if (!href) return;
+
+          let linkPath;
+
+          try {
+            linkPath =
+              new URL(href, window.location.origin)
+                .pathname
+                .replace(/\/+$/, "") || "/";
+          } catch {
+            return;
+          }
+
+          if (linkPath === currentPath) {
+            link.classList.add("is-active");
+            link.setAttribute("aria-current", "page");
+          }
+
+        });
+
+
+      /* ---------------------------------------------
+         Scroll listener
+      --------------------------------------------- */
+
+      let ticking = false;
+
+      const onScroll = () => {
+
+        if (ticking) return;
+
+        window.requestAnimationFrame(() => {
+
+          updateHeader();
+          updateProgress();
+
+          ticking = false;
+
+        });
+
+        ticking = true;
+      };
+
+
+      window.addEventListener(
+        "scroll",
+        onScroll,
+        { passive: true }
+      );
+
+
+      updateHeader();
+      updateProgress();
+
+    })();
+  </script>
 
 </body>
 
