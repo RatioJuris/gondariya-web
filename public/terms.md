@@ -1,12 +1,25 @@
 ---
 layout: default
-title: Terms of Service
-permalink: /terms/
+
+title: "Terms of Use"
+
+description: >
+  Terms governing access to and use of the Services.
+
+keywords:
+  - terms
+  - terms of use
+  - conditions
+
+robots: "index,follow"
+
+jsonld:
+  "@context": "https://schema.org"
+  "@type": "WebPage"
+  name: "Terms of Use"
+  description: "Terms governing access to and use of the Services."
 ---
 
-# Terms of Service
+# Terms of Use
 
-These starter terms describe the basic expectations for using the Gondariya
-website. Replace this content with the site's approved terms before publishing.
-
-By using this website, visitors agree to use it lawfully and respectfully.
+Your terms go here.
