@@ -7,6 +7,9 @@ description: >
   The meaning, provenance and contemporary identity
   represented by Gonardiya.
 
+canonical: "/about/"
+permalink: /about/
+
 keywords:
   - Gonardiya
   - origin
