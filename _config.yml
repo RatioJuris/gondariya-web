@@ -4,12 +4,15 @@ description: >
   Gonardiya represents origin, heritage, intellectual identity,
   continuity and legacy.
 
+url: ""
+baseurl: ""
+
 lang: "en-IN"
 
 author:
   name: "Gonardiya"
 
-logo: "/assets/favicon.svg"
+logo: "/assets/gonardiya.png"
 
 markdown: kramdown
 
@@ -17,7 +20,13 @@ permalink: /:basename/
 
 timezone: Asia/Kolkata
 
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
 defaults:
+
   - scope:
       path: ""
     values:
@@ -26,76 +35,12 @@ defaults:
       robots: "index,follow"
 
   - scope:
-      path: ""
+      path: "_pages"
       type: pages
     values:
       layout: default
-
-  - scope:
-      path: ""
-      type: pages
-    values:
-      sitemap: true
-
-  - scope:
-      path: ""
-      type: pages
-    values:
-      layout: default
-
-  - scope:
-      path: ""
-      type: pages
-    values:
+      lang: "en-IN"
       robots: "index,follow"
 
-  - scope:
-      path: ""
-      type: pages
-    values:
-      canonical: ""
-
-  - scope:
-      path: ""
-      type: pages
-    values:
-      lang: "en-IN"
-
-  - scope:
-      path: ""
-      type: pages
-    values:
-      author: "Gonardiya"
-
-  - scope:
-      path: ""
-      type: pages
-    values:
-      favicon: "/assets/favicon.svg"
-
-  - scope:
-      path: ""
-      type: pages
-    values:
-      theme_color: "#0B1F3A"
-
-  - scope:
-      path: ""
-      type: pages
-    values:
-      sitemap: true
-
-  - scope:
-      path: ""
-      type: pages
-    values:
-      og:
-        type: "website"
-
-  - scope:
-      path: ""
-      type: collection
-      values:
-        layout: default
-        lang: "en-IN"
-        robots: "index,follow"
+plugins:
+  - jekyll-sitemap
