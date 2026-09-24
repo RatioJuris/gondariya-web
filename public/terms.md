@@ -3,6 +3,9 @@ layout: default
 
 title: "Terms of Use"
 
+canonical: "/terms/"
+permalink: /terms/
+
 description: >
   Terms governing access to and use of the Services.
 
