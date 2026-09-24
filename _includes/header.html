@@ -1,11 +1,25 @@
 <header class="site-header">
-  <div class="container">
-    <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title }}</a>
-    <nav aria-label="Main navigation">
-      <a href="{{ "/" | relative_url }}">Home</a>
-      <a href="{{ "/about/" | relative_url }}">About</a>
-      <a href="{{ "/privacy-policy/" | relative_url }}">Privacy</a>
-      <a href="{{ "/terms/" | relative_url }}">Terms</a>
+
+  <div class="site-header-inner">
+
+    <a
+      class="site-brand"
+      href="{{ '/' | relative_url }}"
+    >
+      Gonardiya
+    </a>
+
+    <nav class="site-nav">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="{{ '/privacy-policy/' | relative_url }}">
+        Privacy
+      </a>
+      <a href="{{ '/terms/' | relative_url }}">
+        Terms
+      </a>
     </nav>
+
   </div>
+
 </header>
