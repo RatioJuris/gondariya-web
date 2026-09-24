@@ -3,463 +3,183 @@
 
 <head>
   {% include head.html %}
-
-  <style>
-    /* =========================================================
-       GONARDIYA — MOTION SYSTEM
-       ========================================================= */
-
-    :root {
-      --g-navy: #0B1F3A;
-      --g-gold: #C89B3C;
-      --g-ivory: #F5F0E6;
-      --g-line: rgba(11, 31, 58, 0.08);
-    }
-
-    /* Ambient light */
-    .g-ambient {
-      position: absolute;
-      width: 42rem;
-      height: 42rem;
-      border-radius: 9999px;
-      pointer-events: none;
-      filter: blur(80px);
-      opacity: 0.34;
-      mix-blend-mode: multiply;
-      animation: g-float 14s ease-in-out infinite;
-    }
-
-    .g-ambient-one {
-      top: -18rem;
-      right: -14rem;
-      background:
-        radial-gradient(
-          circle,
-          rgba(200, 155, 60, 0.16) 0%,
-          rgba(200, 155, 60, 0) 70%
-        );
-    }
-
-    .g-ambient-two {
-      top: 24rem;
-      left: -24rem;
-      background:
-        radial-gradient(
-          circle,
-          rgba(11, 31, 58, 0.10) 0%,
-          rgba(11, 31, 58, 0) 70%
-        );
-      animation-delay: -6s;
-    }
-
-    @keyframes g-float {
-      0%,
-      100% {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-
-      50% {
-        transform: translate3d(18px, 24px, 0) scale(1.05);
-      }
-    }
-
-    /* Editorial grid */
-    .g-grid {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.28;
-
-      background-image:
-        linear-gradient(
-          to right,
-          rgba(11, 31, 58, 0.035) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          to bottom,
-          rgba(11, 31, 58, 0.025) 1px,
-          transparent 1px
-        );
-
-      background-size:
-        72px 72px,
-        72px 72px;
-
-      mask-image:
-        linear-gradient(
-          to bottom,
-          black 0%,
-          transparent 75%
-        );
-    }
-
-    /* Header transformation */
-    .g-header {
-      transition:
-        background-color 300ms ease,
-        border-color 300ms ease,
-        box-shadow 300ms ease,
-        transform 300ms ease;
-    }
-
-    .g-header.scrolled {
-      background-color: rgba(255, 255, 255, 0.82);
-      border-color: rgba(11, 31, 58, 0.08);
-      box-shadow:
-        0 10px 30px rgba(11, 31, 58, 0.05);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
-
-    /* Scroll progress */
-    .g-progress {
-      position: fixed;
-      z-index: 9999;
-      top: 0;
-      left: 0;
-      height: 2px;
-      width: 0%;
-      background: var(--g-gold);
-      transition: width 80ms linear;
-    }
-
-    /* Entry animation */
-    .g-reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition:
-        opacity 800ms cubic-bezier(.22, 1, .36, 1),
-        transform 800ms cubic-bezier(.22, 1, .36, 1);
-    }
-
-    .g-reveal.g-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .g-reveal-delay-1 {
-      transition-delay: 90ms;
-    }
-
-    .g-reveal-delay-2 {
-      transition-delay: 170ms;
-    }
-
-    .g-reveal-delay-3 {
-      transition-delay: 250ms;
-    }
-
-    /* Gold marker */
-    .g-marker {
-      position: relative;
-      display: inline-block;
-    }
-
-    .g-marker::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -0.5rem;
-      height: 1px;
-      background: var(--g-gold);
-      transform-origin: left;
-      transform: scaleX(0.15);
-      transition:
-        transform 700ms cubic-bezier(.22, 1, .36, 1);
-    }
-
-    .g-marker:hover::after {
-      transform: scaleX(1);
-    }
-
-    /* Image hover */
-    .g-logo {
-      transition:
-        transform 350ms cubic-bezier(.22, 1, .36, 1),
-        opacity 250ms ease;
-    }
-
-    .g-logo:hover {
-      transform: translateY(-1px);
-      opacity: 0.88;
-    }
-
-    /* Navigation underline */
-    .g-nav-link {
-      position: relative;
-    }
-
-    .g-nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -7px;
-      height: 1px;
-      background: var(--g-gold);
-
-      transform: scaleX(0);
-      transform-origin: center;
-
-      transition:
-        transform 250ms cubic-bezier(.22, 1, .36, 1);
-    }
-
-    .g-nav-link:hover::after,
-    .g-nav-link.is-active::after {
-      transform: scaleX(1);
-    }
-
-    /* CTA motion */
-    .g-button {
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .g-button::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-
-      background:
-        linear-gradient(
-          120deg,
-          transparent 20%,
-          rgba(255, 255, 255, 0.15) 50%,
-          transparent 80%
-        );
-
-      transform: translateX(-120%);
-      transition:
-        transform 650ms cubic-bezier(.22, 1, .36, 1);
-
-      z-index: -1;
-    }
-
-    .g-button:hover::before {
-      transform: translateX(120%);
-    }
-
-    /* Reading surface */
-    .g-content {
-      font-size: 1.02rem;
-      line-height: 1.85;
-      color: rgb(71 85 105);
-    }
-
-    .g-content h2 {
-      margin-top: 4.5rem;
-      margin-bottom: 1.15rem;
-
-      color: var(--g-navy);
-
-      font-size: clamp(1.45rem, 2vw, 1.8rem);
-      line-height: 1.2;
-      font-weight: 700;
-      letter-spacing: -0.035em;
-    }
-
-    .g-content h3 {
-      margin-top: 2.8rem;
-      margin-bottom: 0.8rem;
-
-      color: var(--g-navy);
-
-      font-size: 1.12rem;
-      line-height: 1.4;
-      font-weight: 650;
-      letter-spacing: -0.02em;
-    }
-
-    .g-content p {
-      margin-top: 0;
-      margin-bottom: 1.45rem;
-    }
-
-    .g-content ul,
-    .g-content ol {
-      margin-top: 1rem;
-      margin-bottom: 1.7rem;
-      padding-left: 1.5rem;
-    }
-
-    .g-content li {
-      margin: 0.5rem 0;
-    }
-
-    .g-content a {
-      color: var(--g-navy);
-      text-decoration-line: underline;
-      text-decoration-color: rgba(200, 155, 60, 0.7);
-      text-decoration-thickness: 1px;
-      text-underline-offset: 4px;
-      transition:
-        color 180ms ease,
-        text-decoration-color 180ms ease;
-    }
-
-    .g-content a:hover {
-      color: #000f22;
-      text-decoration-color: var(--g-gold);
-    }
-
-    .g-content strong {
-      color: var(--g-navy);
-      font-weight: 650;
-    }
-
-    .g-content blockquote {
-      margin: 2.5rem 0;
-      padding: 1.25rem 1.4rem;
-
-      border-left: 2px solid var(--g-gold);
-
-      background: rgba(245, 240, 230, 0.46);
-      color: rgb(51 65 85);
-    }
-
-    .g-content hr {
-      margin: 4rem 0;
-      border: 0;
-      border-top: 1px solid var(--g-line);
-    }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      .g-reveal {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  </style>
 </head>
 
-<body class="min-h-screen overflow-x-hidden bg-white text-slate-900 antialiased">
+<body class="gondariya-site">
 
-  <!-- Scroll progress -->
+  <!-- =========================================================
+       TOP PROGRESS
+       ========================================================= -->
+
   <div
-    id="g-progress"
-    class="g-progress"
+    id="page-progress"
+    class="fixed left-0 top-0 z-[9999] h-[3px] w-0 bg-gradient-to-r from-[#C89B3C] via-[#7C5CFC] to-[#0B1F3A]"
     aria-hidden="true"
   ></div>
 
 
-  <!-- =======================================================
-       HEADER
-       ======================================================= -->
+  <!-- =========================================================
+       CURSOR ATMOSPHERE
+       ========================================================= -->
 
-  <header
-    id="g-header"
-    class="g-header sticky top-0 z-50 border-b border-slate-900/5 bg-white"
-  >
-
-    {% include header.html %}
-
-  </header>
+  <div
+    id="cursor-glow"
+    class="pointer-events-none fixed left-0 top-0 z-[1] hidden h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-300 lg:block"
+    aria-hidden="true"
+  ></div>
 
 
-  <!-- =======================================================
-       BACKGROUND SYSTEM
-       ======================================================= -->
+  <!-- =========================================================
+       GLOBAL BACKGROUND
+       ========================================================= -->
 
   <div
     class="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
     aria-hidden="true"
   >
 
-    <div class="g-grid"></div>
+    <div class="g-bg-grid"></div>
 
-    <div class="g-ambient g-ambient-one"></div>
+    <div class="g-orb g-orb-one"></div>
 
-    <div class="g-ambient g-ambient-two"></div>
+    <div class="g-orb g-orb-two"></div>
+
+    <div class="g-orb g-orb-three"></div>
+
+    <div class="g-orb g-orb-four"></div>
+
+    <div class="absolute inset-0 bg-white/65"></div>
 
   </div>
 
 
-  <!-- =======================================================
-       PAGE
-       ======================================================= -->
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+
+  {% include header.html %}
+
+
+  <!-- =========================================================
+       PAGE CONTENT
+       ========================================================= -->
+
+  {% assign is_home = false %}
 
   {% if page.url == "/" %}
+    {% assign is_home = true %}
+  {% endif %}
+
+
+  {% if is_home %}
+
+    <!-- =======================================================
+         HOME
+         ======================================================= -->
 
     <main>
 
-      {{ content }}
+      <section class="relative overflow-hidden">
 
-    </main>
+        <div class="mx-auto max-w-7xl px-6 pb-16 pt-20 sm:px-8 sm:pb-24 sm:pt-28 lg:px-10 lg:pb-32 lg:pt-36">
 
-  {% else %}
+          <div class="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
 
-    <main>
+            <!-- Main identity -->
 
-      <!-- Page introduction -->
+            <div class="relative z-10">
 
-      <section
-        class="page-container relative pt-20 pb-10 sm:pt-28 sm:pb-14 lg:pt-32"
-      >
+              <div class="mb-7 inline-flex items-center gap-3 rounded-full border border-[#0B1F3A]/10 bg-white/75 px-4 py-2 shadow-sm backdrop-blur-xl">
 
-        <div class="max-w-5xl">
+                <span class="h-2 w-2 animate-pulse rounded-full bg-[#C89B3C]"></span>
 
-          <div class="g-reveal">
+                <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-[#0B1F3A]/70">
+                  Origin · Heritage · Continuity
+                </span>
 
-            <p
-              class="mb-5 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#C89B3C]"
-            >
-              Gonardiya
-            </p>
+              </div>
 
-          </div>
+              <h1 class="max-w-5xl text-6xl font-semibold leading-[0.9] tracking-[-0.075em] text-[#0B1F3A] sm:text-7xl lg:text-[7.6rem]">
+
+                {{ page.title | default: site.title }}
+
+              </h1>
+
+              {% if page.description %}
+
+              <p class="mt-8 max-w-2xl text-lg leading-8 text-slate-500 sm:text-xl sm:leading-9">
+
+                {{ page.description }}
+
+              </p>
+
+              {% endif %}
+
+              <div class="mt-10 flex flex-wrap gap-4">
+
+                <a
+                  href="{{ '/about/' | relative_url }}"
+                  class="g-button inline-flex items-center gap-3 rounded-full bg-[#0B1F3A] px-6 py-3.5 text-sm font-semibold text-white shadow-xl shadow-[#0B1F3A]/15"
+                >
+                  Explore Gonardiya
+
+                  <span
+                    class="transition-transform duration-300 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </a>
+
+                <a
+                  href="{{ '/privacy-policy/' | relative_url }}"
+                  class="inline-flex items-center rounded-full border border-[#0B1F3A]/10 bg-white/80 px-6 py-3.5 text-sm font-semibold text-[#0B1F3A] shadow-sm backdrop-blur-xl transition hover:border-[#C89B3C]/60 hover:bg-[#F5F0E6]/70"
+                >
+                  Privacy
+                </a>
+
+              </div>
+
+            </div>
 
 
-          <div class="g-reveal g-reveal-delay-1">
+            <!-- Visual identity panel -->
 
-            <h1
-              class="max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.06em] text-[#0B1F3A] sm:text-6xl lg:text-7xl"
-            >
-              {{ page.title }}
-            </h1>
+            <div class="relative">
 
-          </div>
+              <div class="g-identity-panel">
 
+                <div class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-[#0B1F3A] via-[#17365F] to-[#5B4BA8]"></div>
 
-          {% if page.description %}
+                <div class="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[#C89B3C]/30 blur-3xl"></div>
 
-          <div class="g-reveal g-reveal-delay-2">
+                <div class="absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-cyan-300/20 blur-3xl"></div>
 
-            <p
-              class="mt-7 max-w-2xl text-lg leading-8 text-slate-500 sm:text-xl"
-            >
-              {{ page.description }}
-            </p>
+                <div class="absolute inset-[1px] rounded-[2rem] bg-[#07182E]/75 backdrop-blur-sm"></div>
 
-          </div>
+                <div class="relative flex min-h-[380px] items-center justify-center p-10 sm:min-h-[440px]">
 
-          {% endif %}
+                  <div class="absolute inset-8 rounded-[1.5rem] border border-white/10"></div>
 
+                  <div class="absolute inset-14 rounded-[1.25rem] border border-[#C89B3C]/20"></div>
 
-          <div class="g-reveal g-reveal-delay-3 mt-10 flex items-center gap-4">
+                  <div class="relative w-full max-w-[480px]">
 
-            <span
-              class="h-px w-12 bg-[#C89B3C]"
-            ></span>
+                    <img
+                      src="{{ '/assets/gonardiya.png' | relative_url }}"
+                      alt="Gonardiya"
+                      width="2192"
+                      height="585"
+                      class="w-full object-contain brightness-0 invert"
+                    >
 
-            <span
-              class="text-[10px] font-medium uppercase tracking-[0.24em] text-slate-400"
-            >
-              Origin · Heritage · Continuity
-            </span>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
@@ -468,28 +188,151 @@
       </section>
 
 
-      <!-- Thin editorial divider -->
+      <!-- HOME CONTENT -->
 
-      <div class="page-container">
+      <section class="mx-auto max-w-7xl px-6 pb-24 sm:px-8 lg:px-10 lg:pb-36">
 
-        <div class="h-px bg-slate-900/7"></div>
-
-      </div>
-
-
-      <!-- Content -->
-
-      <section
-        class="page-container pt-12 pb-24 sm:pt-16 sm:pb-32 lg:pb-40"
-      >
-
-        <article
-          class="g-content g-reveal max-w-3xl"
-        >
+        <div class="g-content-shell">
 
           {{ content }}
 
-        </article>
+        </div>
+
+      </section>
+
+    </main>
+
+
+  {% else %}
+
+
+    <!-- =======================================================
+         INTERNAL PAGE
+         ======================================================= -->
+
+    <main>
+
+      <!-- Page hero -->
+
+      <section class="relative overflow-hidden">
+
+        <div class="mx-auto max-w-7xl px-6 pb-14 pt-20 sm:px-8 sm:pb-20 sm:pt-28 lg:px-10 lg:pb-24 lg:pt-32">
+
+          <div class="relative max-w-5xl">
+
+            <div class="g-eyebrow">
+
+              <span class="g-eyebrow-dot"></span>
+
+              <span>
+                Gonardiya
+              </span>
+
+              <span class="text-slate-300">
+                /
+              </span>
+
+              <span class="text-slate-400">
+                {{ page.section | default: "Document" }}
+              </span>
+
+            </div>
+
+
+            <h1 class="mt-7 max-w-5xl text-5xl font-semibold leading-[0.96] tracking-[-0.065em] text-[#0B1F3A] sm:text-6xl lg:text-[5.8rem]">
+
+              {{ page.title }}
+
+            </h1>
+
+
+            {% if page.description %}
+
+            <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-500 sm:text-xl sm:leading-9">
+
+              {{ page.description }}
+
+            </p>
+
+            {% endif %}
+
+
+            <div class="mt-9 flex flex-wrap items-center gap-3">
+
+              <span class="g-pill">
+                Origin
+              </span>
+
+              <span class="g-pill">
+                Heritage
+              </span>
+
+              <span class="g-pill">
+                Continuity
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Decorative transition -->
+
+      <section class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+
+        <div class="g-spectrum-line">
+
+          <span></span>
+
+        </div>
+
+      </section>
+
+
+      <!-- Main document -->
+
+      <section class="mx-auto max-w-7xl px-6 pb-24 pt-12 sm:px-8 sm:pb-32 sm:pt-16 lg:px-10 lg:pb-40">
+
+        <div class="grid items-start gap-10 lg:grid-cols-[220px_minmax(0,760px)] lg:gap-20">
+
+          <!-- Editorial rail -->
+
+          <aside class="hidden lg:block lg:sticky lg:top-32">
+
+            <div class="g-side-card">
+
+              <span class="g-side-number">
+                {{ page.title | slice: 0, 1 }}
+              </span>
+
+              <div class="mt-6 h-px bg-gradient-to-r from-[#C89B3C] to-transparent"></div>
+
+              <p class="mt-5 text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">
+                Gonardiya
+              </p>
+
+              <p class="mt-2 text-sm leading-6 text-slate-500">
+                Origin, heritage, intellectual continuity and legacy.
+              </p>
+
+            </div>
+
+          </aside>
+
+
+          <!-- Article -->
+
+          <article class="g-article">
+
+            {{ content }}
+
+          </article>
+
+        </div>
 
       </section>
 
@@ -498,43 +341,41 @@
   {% endif %}
 
 
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+
   {% include footer.html %}
 
 
-  <!-- =======================================================
-       MOTION
-       ======================================================= -->
+  <!-- =========================================================
+       INTERACTION
+       ========================================================= -->
 
   <script>
     (() => {
+
       "use strict";
 
-      const header = document.getElementById("g-header");
-      const progress = document.getElementById("g-progress");
+      const progress =
+        document.getElementById("page-progress");
 
-      /* ---------------------------------------------
-         Header state
-      --------------------------------------------- */
-
-      const updateHeader = () => {
-        if (!header) return;
-
-        if (window.scrollY > 20) {
-          header.classList.add("scrolled");
-        } else {
-          header.classList.remove("scrolled");
-        }
-      };
+      const cursorGlow =
+        document.getElementById("cursor-glow");
 
 
-      /* ---------------------------------------------
+      /* -------------------------------------------------------
          Scroll progress
-      --------------------------------------------- */
+         ------------------------------------------------------- */
 
       const updateProgress = () => {
-        if (!progress) return;
 
-        const scrollTop = window.scrollY;
+        if (!progress) {
+          return;
+        }
+
+        const scrollTop =
+          window.scrollY || window.pageYOffset;
 
         const documentHeight =
           document.documentElement.scrollHeight -
@@ -547,101 +388,77 @@
 
         progress.style.width =
           `${Math.min(100, Math.max(0, percentage))}%`;
+
       };
 
 
-      /* ---------------------------------------------
-         Reveal system
-      --------------------------------------------- */
+      /* -------------------------------------------------------
+         Cursor atmosphere
+         ------------------------------------------------------- */
 
-      const revealElements =
-        document.querySelectorAll(".g-reveal");
+      if (
+        cursorGlow &&
+        window.matchMedia("(pointer:fine)").matches
+      ) {
 
-      if ("IntersectionObserver" in window) {
+        let cursorX = 0;
+        let cursorY = 0;
+        let currentX = 0;
+        let currentY = 0;
 
-        const observer =
-          new IntersectionObserver(
-            (entries, observer) => {
+        const moveCursor = (event) => {
 
-              entries.forEach((entry) => {
+          cursorX = event.clientX;
+          cursorY = event.clientY;
 
-                if (!entry.isIntersecting) {
-                  return;
-                }
+          cursorGlow.style.opacity = "0.32";
 
-                entry.target.classList.add("g-visible");
+        };
 
-                observer.unobserve(entry.target);
+        const animateCursor = () => {
 
-              });
+          currentX += (cursorX - currentX) * 0.08;
+          currentY += (cursorY - currentY) * 0.08;
 
-            },
-            {
-              threshold: 0.08,
-              rootMargin: "0px 0px -40px 0px"
-            }
-          );
+          cursorGlow.style.transform =
+            `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
 
-        revealElements.forEach((element) => {
-          observer.observe(element);
-        });
+          requestAnimationFrame(animateCursor);
 
-      } else {
+        };
 
-        revealElements.forEach((element) => {
-          element.classList.add("g-visible");
-        });
+        window.addEventListener(
+          "mousemove",
+          moveCursor,
+          { passive: true }
+        );
+
+        document.addEventListener(
+          "mouseleave",
+          () => {
+            cursorGlow.style.opacity = "0";
+          }
+        );
+
+        animateCursor();
 
       }
 
 
-      /* ---------------------------------------------
-         Active navigation
-      --------------------------------------------- */
-
-      const currentPath =
-        window.location.pathname.replace(/\/+$/, "") || "/";
-
-      document
-        .querySelectorAll(".g-nav-link")
-        .forEach((link) => {
-
-          const href = link.getAttribute("href");
-
-          if (!href) return;
-
-          let linkPath;
-
-          try {
-            linkPath =
-              new URL(href, window.location.origin)
-                .pathname
-                .replace(/\/+$/, "") || "/";
-          } catch {
-            return;
-          }
-
-          if (linkPath === currentPath) {
-            link.classList.add("is-active");
-            link.setAttribute("aria-current", "page");
-          }
-
-        });
-
-
-      /* ---------------------------------------------
-         Scroll listener
-      --------------------------------------------- */
+      /* -------------------------------------------------------
+         Efficient scroll listener
+         ------------------------------------------------------- */
 
       let ticking = false;
 
       const onScroll = () => {
 
-        if (ticking) return;
+        if (ticking) {
+          return;
+        }
 
         window.requestAnimationFrame(() => {
 
-          updateHeader();
           updateProgress();
 
           ticking = false;
@@ -649,6 +466,7 @@
         });
 
         ticking = true;
+
       };
 
 
@@ -659,7 +477,6 @@
       );
 
 
-      updateHeader();
       updateProgress();
 
     })();
