@@ -1,0 +1,1380 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang | default: 'en-IN' }}">
+
+<head>
+  {% include head.html %}
+
+  <style>
+    /* =========================================================
+       GONARDIYA — ABOUT EXPERIENCE
+       Dedicated visual system for the About page.
+       Content itself is never hidden or lazy-revealed.
+       ========================================================= */
+
+    :root {
+      --g-navy: #0B1F3A;
+      --g-gold: #C89B3C;
+      --g-ivory: #F5F0E6;
+      --g-violet: #6754C8;
+      --g-cyan: #36B9C8;
+      --g-ink: #172033;
+    }
+
+    body {
+      overflow-x: hidden;
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff 0%,
+          #fbfcff 42%,
+          #ffffff 100%
+        );
+    }
+
+    /* =========================================================
+       AMBIENT BACKGROUND
+       ========================================================= */
+
+    .about-atmosphere {
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .about-orb {
+      position: absolute;
+      border-radius: 9999px;
+      pointer-events: none;
+      filter: blur(70px);
+      will-change: transform;
+      animation: aboutFloat 18s ease-in-out infinite;
+    }
+
+    .about-orb-1 {
+      width: 35rem;
+      height: 35rem;
+      top: -14rem;
+      right: -9rem;
+      background:
+        radial-gradient(
+          circle,
+          rgba(200, 155, 60, 0.25) 0%,
+          rgba(200, 155, 60, 0) 70%
+        );
+    }
+
+    .about-orb-2 {
+      width: 32rem;
+      height: 32rem;
+      top: 30%;
+      left: -18rem;
+      background:
+        radial-gradient(
+          circle,
+          rgba(103, 84, 200, 0.17) 0%,
+          rgba(103, 84, 200, 0) 70%
+        );
+      animation-delay: -6s;
+    }
+
+    .about-orb-3 {
+      width: 28rem;
+      height: 28rem;
+      top: 63%;
+      right: -14rem;
+      background:
+        radial-gradient(
+          circle,
+          rgba(54, 185, 200, 0.14) 0%,
+          rgba(54, 185, 200, 0) 70%
+        );
+      animation-delay: -11s;
+    }
+
+    @keyframes aboutFloat {
+      0%,
+      100% {
+        transform:
+          translate3d(0, 0, 0)
+          scale(1);
+      }
+
+      50% {
+        transform:
+          translate3d(22px, -28px, 0)
+          scale(1.07);
+      }
+    }
+
+    .about-grid {
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        linear-gradient(
+          rgba(11, 31, 58, 0.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(11, 31, 58, 0.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 72px 72px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black 0%,
+          transparent 82%
+        );
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+
+    .about-hero {
+      position: relative;
+      padding:
+        7rem 0
+        6rem;
+    }
+
+    .about-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+
+      color: var(--g-gold);
+
+      font-size: 0.65rem;
+      font-weight: 800;
+
+      letter-spacing: 0.27em;
+      text-transform: uppercase;
+    }
+
+    .about-kicker-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+
+      border-radius: 9999px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--g-gold),
+          var(--g-violet)
+        );
+
+      box-shadow:
+        0 0 0 6px
+        rgba(200, 155, 60, 0.08);
+    }
+
+    .about-title {
+      margin-top: 1.75rem;
+
+      max-width: 1050px;
+
+      color: var(--g-navy);
+
+      font-size:
+        clamp(
+          3.5rem,
+          9vw,
+          8.7rem
+        );
+
+      font-weight: 700;
+
+      line-height: 0.88;
+
+      letter-spacing:
+        -0.075em;
+    }
+
+    .about-title-accent {
+      display: inline-block;
+
+      background:
+        linear-gradient(
+          105deg,
+          var(--g-navy) 10%,
+          #314D79 42%,
+          var(--g-violet) 78%,
+          var(--g-gold)
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+
+      background-size: 220% auto;
+
+      animation:
+        aboutGradient 8s ease-in-out infinite;
+    }
+
+    @keyframes aboutGradient {
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .about-subtitle {
+      max-width: 760px;
+
+      margin-top: 2rem;
+
+      color: #64748B;
+
+      font-size:
+        clamp(
+          1.1rem,
+          2vw,
+          1.4rem
+        );
+
+      line-height: 1.75;
+    }
+
+    /* =========================================================
+       HERO IDENTITY PANEL
+       ========================================================= */
+
+    .about-identity {
+      position: relative;
+
+      min-height: 420px;
+
+      overflow: hidden;
+
+      border-radius: 2rem;
+
+      background:
+        linear-gradient(
+          135deg,
+          #07182E 0%,
+          #102E52 42%,
+          #4D438E 100%
+        );
+
+      box-shadow:
+        0 35px 100px
+        rgba(11, 31, 58, 0.18);
+
+      isolation: isolate;
+    }
+
+    .about-identity::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          circle at 20% 20%,
+          rgba(200, 155, 60, 0.25),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 80% 75%,
+          rgba(54, 185, 200, 0.16),
+          transparent 28%
+        );
+
+      animation:
+        aboutPulse 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes aboutPulse {
+      from {
+        transform: scale(1);
+        opacity: 0.75;
+      }
+
+      to {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    .about-identity-ring {
+      position: absolute;
+
+      border-radius: 9999px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+
+      animation:
+        aboutRotate 28s linear infinite;
+    }
+
+    .about-identity-ring-1 {
+      width: 300px;
+      height: 300px;
+
+      right: -80px;
+      top: -70px;
+    }
+
+    .about-identity-ring-2 {
+      width: 450px;
+      height: 450px;
+
+      left: -190px;
+      bottom: -200px;
+
+      border-color:
+        rgba(200, 155, 60, 0.18);
+
+      animation-direction:
+        reverse;
+    }
+
+    @keyframes aboutRotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .about-logo-wrap {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      min-height: 420px;
+
+      padding: 3rem;
+    }
+
+    .about-logo {
+      width: min(
+        100%,
+        560px
+      );
+
+      height: auto;
+
+      filter:
+        brightness(0)
+        invert(1);
+
+      opacity: 0.97;
+
+      transition:
+        transform 500ms
+        cubic-bezier(.22,1,.36,1);
+    }
+
+    .about-identity:hover .about-logo {
+      transform:
+        scale(1.025)
+        translateY(-3px);
+    }
+
+    /* =========================================================
+       MANIFESTO
+       ========================================================= */
+
+    .about-manifesto {
+      padding:
+        6rem 0
+        5rem;
+    }
+
+    .about-manifesto-card {
+      position: relative;
+
+      overflow: hidden;
+
+      padding:
+        3rem;
+
+      border-radius:
+        1.75rem;
+
+      border:
+        1px solid
+        rgba(11, 31, 58, 0.07);
+
+      background:
+        rgba(255,255,255,0.82);
+
+      box-shadow:
+        0 30px 80px
+        rgba(11,31,58,0.06);
+
+      backdrop-filter:
+        blur(18px);
+    }
+
+    .about-manifesto-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 180px;
+      height: 180px;
+
+      top: -90px;
+      right: -70px;
+
+      border-radius: 9999px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(200,155,60,0.19),
+          transparent 70%
+        );
+    }
+
+    .about-manifesto-label {
+      color: var(--g-gold);
+
+      font-size: 0.65rem;
+      font-weight: 800;
+
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .about-manifesto-text {
+      max-width: 900px;
+
+      margin-top: 1rem;
+
+      color: var(--g-navy);
+
+      font-size:
+        clamp(
+          1.75rem,
+          4vw,
+          3.2rem
+        );
+
+      font-weight: 600;
+
+      line-height: 1.17;
+
+      letter-spacing:
+        -0.045em;
+    }
+
+    /* =========================================================
+       CONTENT
+       ========================================================= */
+
+    .about-content {
+      padding:
+        2rem 0
+        8rem;
+    }
+
+    .about-content-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr);
+
+      gap: 3rem;
+    }
+
+    .about-rail {
+      display: none;
+    }
+
+    .about-article {
+      min-width: 0;
+
+      color: #475569;
+
+      font-size:
+        1.04rem;
+
+      line-height:
+        1.9;
+    }
+
+    .about-article > p:first-child::first-letter {
+      float: left;
+
+      margin:
+        0.12rem 0.55rem 0 0;
+
+      color:
+        var(--g-navy);
+
+      font-size:
+        4.25rem;
+
+      line-height:
+        0.75;
+
+      font-weight:
+        700;
+    }
+
+    .about-article h2 {
+      position: relative;
+
+      margin:
+        5rem 0 1.3rem;
+
+      color:
+        var(--g-navy);
+
+      font-size:
+        clamp(
+          1.8rem,
+          4vw,
+          2.65rem
+        );
+
+      line-height:
+        1.05;
+
+      font-weight:
+        750;
+
+      letter-spacing:
+        -0.05em;
+    }
+
+    .about-article h2::after {
+      content: "";
+
+      display: block;
+
+      width: 55px;
+      height: 3px;
+
+      margin-top: 1rem;
+
+      border-radius: 9999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--g-gold),
+          var(--g-violet)
+        );
+    }
+
+    .about-article h3 {
+      margin:
+        2.75rem 0 0.8rem;
+
+      color:
+        var(--g-navy);
+
+      font-size:
+        1.15rem;
+
+      font-weight:
+        700;
+    }
+
+    .about-article p {
+      margin:
+        0 0 1.45rem;
+    }
+
+    .about-article strong {
+      color:
+        var(--g-navy);
+
+      font-weight:
+        700;
+    }
+
+    .about-article ul,
+    .about-article ol {
+      margin:
+        1.25rem 0 1.75rem;
+
+      padding-left:
+        1.5rem;
+    }
+
+    .about-article li {
+      margin:
+        0.55rem 0;
+    }
+
+    .about-article li::marker {
+      color:
+        var(--g-gold);
+
+      font-weight:
+        700;
+    }
+
+    .about-article blockquote {
+      position: relative;
+
+      margin:
+        3rem 0;
+
+      padding:
+        2rem 2rem 2rem 2.15rem;
+
+      border:
+        1px solid
+        rgba(200,155,60,0.15);
+
+      border-left:
+        3px solid
+        var(--g-gold);
+
+      border-radius:
+        0 1.25rem 1.25rem 0;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(245,240,230,0.8),
+          rgba(255,255,255,0.76)
+        );
+
+      color:
+        var(--g-navy);
+
+      font-size:
+        1.15rem;
+    }
+
+    .about-article a {
+      color:
+        var(--g-navy);
+
+      text-decoration:
+        underline;
+
+      text-decoration-color:
+        rgba(200,155,60,0.65);
+
+      text-decoration-thickness:
+        1px;
+
+      text-underline-offset:
+        4px;
+
+      transition:
+        color 160ms ease;
+    }
+
+    .about-article a:hover {
+      color:
+        var(--g-violet);
+    }
+
+    .about-article hr {
+      margin:
+        4rem 0;
+
+      height:
+        1px;
+
+      border:
+        0;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(11,31,58,0.12),
+          transparent
+        );
+    }
+
+    /* =========================================================
+       LEGACY STRIP
+       ========================================================= */
+
+    .about-legacy {
+      margin:
+        0 0 7rem;
+    }
+
+    .about-legacy-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 1rem;
+    }
+
+    .about-legacy-card {
+      position: relative;
+
+      min-height: 220px;
+
+      overflow: hidden;
+
+      padding: 1.6rem;
+
+      border-radius: 1.35rem;
+
+      background:
+        rgba(255,255,255,0.76);
+
+      border:
+        1px solid
+        rgba(11,31,58,0.07);
+
+      box-shadow:
+        0 18px 45px
+        rgba(11,31,58,0.045);
+
+      transition:
+        transform 280ms
+        cubic-bezier(.22,1,.36,1),
+        box-shadow 280ms ease,
+        border-color 280ms ease;
+    }
+
+    .about-legacy-card:hover {
+      transform:
+        translateY(-6px);
+
+      border-color:
+        rgba(200,155,60,0.28);
+
+      box-shadow:
+        0 28px 60px
+        rgba(11,31,58,0.08);
+    }
+
+    .about-legacy-index {
+      display: flex;
+
+      width: 38px;
+      height: 38px;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--g-navy),
+          var(--g-violet)
+        );
+
+      color:
+        white;
+
+      font-size:
+        0.75rem;
+
+      font-weight:
+        700;
+    }
+
+    .about-legacy-card h3 {
+      margin-top:
+        1.6rem;
+
+      color:
+        var(--g-navy);
+
+      font-size:
+        1rem;
+
+      font-weight:
+        750;
+    }
+
+    .about-legacy-card p {
+      margin-top:
+        0.55rem;
+
+      color:
+        #64748B;
+
+      font-size:
+        0.9rem;
+
+      line-height:
+        1.65;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (min-width: 1024px) {
+
+      .about-hero {
+        padding:
+          9rem 0
+          7rem;
+      }
+
+      .about-content-grid {
+        grid-template-columns:
+          190px minmax(0, 760px);
+
+        gap:
+          5rem;
+      }
+
+      .about-rail {
+        display:
+          block;
+
+        position:
+          sticky;
+
+        top:
+          120px;
+
+        align-self:
+          start;
+      }
+
+      .about-rail-line {
+        width:
+          2px;
+
+        height:
+          150px;
+
+        border-radius:
+          9999px;
+
+        background:
+          linear-gradient(
+            180deg,
+            var(--g-gold),
+            var(--g-violet),
+            transparent
+          );
+      }
+
+      .about-rail-label {
+        margin-top:
+          1rem;
+
+        color:
+          #94A3B8;
+
+        font-size:
+          0.62rem;
+
+        font-weight:
+          800;
+
+        letter-spacing:
+          0.22em;
+
+        text-transform:
+          uppercase;
+
+        writing-mode:
+          vertical-rl;
+
+        transform:
+          rotate(180deg);
+      }
+
+    }
+
+    @media (max-width: 767px) {
+
+      .about-hero {
+        padding:
+          5rem 0
+          4rem;
+      }
+
+      .about-identity {
+        min-height:
+          300px;
+
+        border-radius:
+          1.35rem;
+      }
+
+      .about-logo-wrap {
+        min-height:
+          300px;
+
+        padding:
+          1.5rem;
+      }
+
+      .about-manifesto-card {
+        padding:
+          1.6rem;
+
+        border-radius:
+          1.35rem;
+      }
+
+      .about-legacy-grid {
+        grid-template-columns:
+          1fr;
+      }
+
+      .about-article {
+        font-size:
+          1rem;
+      }
+
+    }
+
+    /* =========================================================
+       REDUCED MOTION
+       ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration:
+          0.001ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          0.001ms !important;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <!-- =========================================================
+       ATMOSPHERE
+       ========================================================= -->
+
+  <div
+    class="about-atmosphere"
+    aria-hidden="true"
+  >
+
+    <div class="about-grid"></div>
+
+    <div class="about-orb about-orb-1"></div>
+
+    <div class="about-orb about-orb-2"></div>
+
+    <div class="about-orb about-orb-3"></div>
+
+  </div>
+
+
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+
+  {% include header.html %}
+
+
+  <!-- =========================================================
+       HERO
+       ========================================================= -->
+
+  <main>
+
+    <section class="about-hero">
+
+      <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+
+        <div class="grid items-end gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+
+          <div>
+
+            <div class="about-kicker">
+
+              <span class="about-kicker-dot"></span>
+
+              <span>
+                Gonardiya
+              </span>
+
+              <span class="text-slate-300">
+                / Identity
+              </span>
+
+            </div>
+
+
+            <h1 class="about-title">
+
+              About
+
+              <span class="about-title-accent">
+                Gonardiya
+              </span>
+
+            </h1>
+
+
+            {% if page.description %}
+
+            <p class="about-subtitle">
+              {{ page.description }}
+            </p>
+
+            {% endif %}
+
+          </div>
+
+
+          <div class="about-identity">
+
+            <div
+              class="about-identity-ring about-identity-ring-1"
+              aria-hidden="true"
+            ></div>
+
+            <div
+              class="about-identity-ring about-identity-ring-2"
+              aria-hidden="true"
+            ></div>
+
+            <div class="about-logo-wrap">
+
+              <img
+                src="{{ '/assets/gonardiya.png' | relative_url }}"
+                alt="Gonardiya"
+                width="2192"
+                height="585"
+                class="about-logo"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         MANIFESTO
+         ========================================================= -->
+
+    <section class="about-manifesto">
+
+      <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+
+        <div class="about-manifesto-card">
+
+          <p class="about-manifesto-label">
+            The principle
+          </p>
+
+          <p class="about-manifesto-text">
+            An identity rooted in provenance,
+            carried through knowledge,
+            and expressed in the present.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         CONTENT
+         ========================================================= -->
+
+    <section class="about-content">
+
+      <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+
+        <div class="about-content-grid">
+
+          <!-- Editorial rail -->
+
+          <aside class="about-rail">
+
+            <div class="about-rail-line"></div>
+
+            <div class="about-rail-label">
+              Origin · Heritage · Continuity
+            </div>
+
+          </aside>
+
+
+          <!-- Markdown content -->
+
+          <article class="about-article">
+
+            {{ content }}
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         LEGACY FRAME
+         ========================================================= -->
+
+    <section class="about-legacy">
+
+      <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+
+        <div class="mb-10 max-w-3xl">
+
+          <p class="about-kicker">
+            <span class="about-kicker-dot"></span>
+            <span>
+              The continuing idea
+            </span>
+          </p>
+
+        </div>
+
+
+        <div class="about-legacy-grid">
+
+          <div class="about-legacy-card">
+
+            <span class="about-legacy-index">
+              01
+            </span>
+
+            <h3>
+              Provenance
+            </h3>
+
+            <p>
+              An identity begins with an understanding of
+              where it comes from and what that origin means.
+            </p>
+
+          </div>
+
+
+          <div class="about-legacy-card">
+
+            <span class="about-legacy-index">
+              02
+            </span>
+
+            <h3>
+              Inheritance
+            </h3>
+
+            <p>
+              Heritage becomes meaningful when its knowledge,
+              memory and identity are carried into another time.
+            </p>
+
+          </div>
+
+
+          <div class="about-legacy-card">
+
+            <span class="about-legacy-index">
+              03
+            </span>
+
+            <h3>
+              Continuation
+            </h3>
+
+            <p>
+              Gonardiya gives that inherited idea a contemporary
+              personal expression through Ronav Narayandas Gonardiya.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+
+  {% include footer.html %}
+
+
+  <!-- =========================================================
+       LIGHTWEIGHT INTERACTION
+       ========================================================= -->
+
+  <script>
+    (() => {
+
+      "use strict";
+
+      /* -------------------------------------------------------
+         Cursor-reactive atmosphere
+         ------------------------------------------------------- */
+
+      const atmosphere =
+        document.querySelector(".about-atmosphere");
+
+      const finePointer =
+        window.matchMedia(
+          "(pointer:fine)"
+        ).matches;
+
+      if (
+        atmosphere &&
+        finePointer
+      ) {
+
+        let targetX = 0;
+        let targetY = 0;
+
+        let currentX = 0;
+        let currentY = 0;
+
+        window.addEventListener(
+          "pointermove",
+          (event) => {
+
+            targetX =
+              (event.clientX /
+                window.innerWidth -
+                0.5) * 22;
+
+            targetY =
+              (event.clientY /
+                window.innerHeight -
+                0.5) * 22;
+
+          },
+          {
+            passive: true
+          }
+        );
+
+        const animate =
+          () => {
+
+            currentX +=
+              (targetX - currentX) *
+              0.045;
+
+            currentY +=
+              (targetY - currentY) *
+              0.045;
+
+            atmosphere.style.transform =
+              `translate3d(${currentX}px, ${currentY}px, 0)`;
+
+            window.requestAnimationFrame(
+              animate
+            );
+
+          };
+
+        animate();
+
+      }
+
+
+      /* -------------------------------------------------------
+         Gentle logo parallax
+         ------------------------------------------------------- */
+
+      const logo =
+        document.querySelector(
+          ".about-logo"
+        );
+
+      if (
+        logo &&
+        finePointer
+      ) {
+
+        logo.addEventListener(
+          "pointermove",
+          (event) => {
+
+            const rect =
+              logo.getBoundingClientRect();
+
+            const x =
+              ((event.clientX - rect.left) /
+                rect.width - 0.5) * 3;
+
+            const y =
+              ((event.clientY - rect.top) /
+                rect.height - 0.5) * 3;
+
+            logo.style.transform =
+              `perspective(900px)
+               rotateX(${-y}deg)
+               rotateY(${x}deg)
+               scale(1.02)`;
+
+          }
+        );
+
+        logo.addEventListener(
+          "pointerleave",
+          () => {
+
+            logo.style.transform =
+              "";
+
+          }
+        );
+
+      }
+
+    })();
+  </script>
+
+</body>
+
+</html>
