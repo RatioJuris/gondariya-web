@@ -1,17 +1,50 @@
-title: Gondariya
-description: A simple Jekyll site for Gondariya.
-url: ""
-baseurl: ""
-lang: en
+title: "Gonardiya"
+description: "Gonardiya represents origin, heritage, intellectual identity, continuity and legacy."
+
+lang: "en-IN"
+
+author:
+  name: "Gonardiya"
+
+logo: "/assets/favicon.svg"
 
 markdown: kramdown
-theme: null
-permalink: pretty
-include:
-  - _pages
+permalink: /:basename/
+
+timezone: Asia/Kolkata
+
+collections:
+  pages:
+    output: true
+    permalink: /:name/
 
 defaults:
   - scope:
       path: ""
+      type: pages
     values:
       layout: default
+      lang: en-IN
+      robots: "index,follow"
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      sitemap: true
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
