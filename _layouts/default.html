@@ -9,8 +9,56 @@
 
   {% include header.html %}
 
+  {% if page.title %}
+
+  <section class="page-container pt-20 pb-8 sm:pt-28">
+
+    {% unless page.url == "/" %}
+
+    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#C89B3C]">
+      Gonardiya
+    </p>
+
+    <h1
+      class="max-w-4xl text-4xl font-semibold leading-tight tracking-[-0.045em] text-[#0B1F3A] sm:text-5xl lg:text-6xl"
+    >
+      {{ page.title }}
+    </h1>
+
+    {% if page.description %}
+
+    <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-500">
+      {{ page.description }}
+    </p>
+
+    {% endif %}
+
+    {% endunless %}
+
+  </section>
+
+  {% endif %}
+
   <main>
-    {{ content }}
+
+    <div class="content-container pb-24 sm:pb-32">
+
+      {% unless page.url == "/" %}
+
+      <article class="markdown-content">
+
+        {{ content }}
+
+      </article>
+
+      {% else %}
+
+        {{ content }}
+
+      {% endunless %}
+
+    </div>
+
   </main>
 
   {% include footer.html %}
