@@ -21,11 +21,10 @@ collections:
 defaults:
   - scope:
       path: ""
-      type: pages
-    values:
-      layout: default
-      lang: en-IN
-      robots: "index,follow"
+      values:
+        layout: default
+        lang: en-IN
+        robots: "index,follow"
 
   - scope:
       path: ""
@@ -45,6 +44,59 @@ defaults:
     values:
       layout: default
 
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
+  - scope:
+      path: ""
+      type: pages
+    values:
+      robots: "index,follow"
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      canonical: ""
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      lang: "en-IN"
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      author: "Gonardiya"
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      favicon: "/assets/favicon.svg"
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      theme_color: "#0B1F3A"
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      sitemap: true
+
+  - scope:
+      path: ""
+      type: pages
+    values:
+      og:
+        type: "website"
+
+  - scope:
+      path: ""
+      type: collection
+      values:
+        layout: default
+        lang: "en-IN"
+        robots: "index,follow"
