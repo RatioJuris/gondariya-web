@@ -1,65 +1,79 @@
-<header class="sticky top-0 z-50 border-b border-slate-900/5 bg-white/90 backdrop-blur-xl">
+<header class="g-header">
 
-  <div
-    class="mx-auto flex min-h-[82px] max-w-7xl items-center justify-between gap-8 px-6 lg:px-8"
-  >
+  <div class="g-header-inner">
+
+    <!-- =====================================================
+         BRAND
+         ===================================================== -->
+
     <a
       href="{{ '/' | relative_url }}"
-      aria-label="Gonardiya"
-      class="shrink-0"
+      aria-label="Gonardiya Home"
+      class="g-logo-link"
     >
+
       <img
         src="{{ '/assets/gonardiya.png' | relative_url }}"
         alt="Gonardiya"
         width="2192"
         height="585"
-        class="h-10 w-auto object-contain sm:h-11"
+        class="g-logo"
       >
+
     </a>
 
-    <!-- Desktop navigation -->
+
+    <!-- =====================================================
+         DESKTOP NAVIGATION
+         ===================================================== -->
+
     <nav
-      class="hidden items-center gap-8 md:flex"
+      class="g-nav hidden md:flex"
       aria-label="Primary navigation"
     >
 
-    <a
-      href="{{ '/' | relative_url }}"
-      class="g-nav-link text-sm font-medium text-slate-600 transition hover:text-[#0B1F3A]"
-    >
-      Home
-    </a>
+      <a
+        href="{{ '/' | relative_url }}"
+        class="g-nav-link"
+      >
+        Home
+      </a>
 
-    <a
-      href="{{ '/about/' | relative_url }}"
-      class="g-nav-link text-sm font-medium text-slate-600 transition hover:text-[#0B1F3A]"
-    >
-      About
-    </a>
-    
-    <a
-      href="{{ '/terms/' | relative_url }}"
-      class="g-nav-link text-sm font-medium text-slate-600 transition hover:text-[#0B1F3A]"
-    >
-      Terms
-    </a>
-    
-    <a
-      href="{{ '/privacy-policy/' | relative_url }}"
-      class="g-nav-link text-sm font-medium text-slate-600 transition hover:text-[#0B1F3A]"
-    >
-      Privacy
-    </a>
+      <a
+        href="{{ '/about/' | relative_url }}"
+        class="g-nav-link"
+      >
+        About
+      </a>
+
+      <a
+        href="{{ '/terms/' | relative_url }}"
+        class="g-nav-link"
+      >
+        Terms
+      </a>
+
+      <a
+        href="{{ '/privacy-policy/' | relative_url }}"
+        class="g-nav-link"
+      >
+        Privacy
+      </a>
 
     </nav>
 
-    <!-- Mobile navigation -->
+
+    <!-- =====================================================
+         MOBILE NAVIGATION
+         ===================================================== -->
+
     <details class="relative md:hidden">
 
       <summary
-        class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-slate-200 text-[#0B1F3A]"
+        class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-[#0B1F3A]/10 bg-white/70 text-[#0B1F3A] shadow-sm backdrop-blur-xl"
         aria-label="Open navigation"
       >
+
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -70,38 +84,44 @@
           stroke-width="1.8"
           aria-hidden="true"
         >
-          <path d="M4 7h16M4 12h16M4 17h16"/>
+
+          <path
+            d="M4 7h16M4 12h16M4 17h16"
+          />
+
         </svg>
+
       </summary>
 
+
       <div
-        class="absolute right-0 top-14 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl shadow-slate-900/10"
+        class="absolute right-0 top-14 w-60 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-2xl shadow-slate-900/10 backdrop-blur-xl"
       >
 
         <a
           href="{{ '/' | relative_url }}"
-          class="block rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          class="block rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-[#F5F0E6] hover:text-[#0B1F3A]"
         >
           Home
         </a>
 
         <a
           href="{{ '/about/' | relative_url }}"
-          class="block rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          class="block rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-[#F5F0E6] hover:text-[#0B1F3A]"
         >
           About
         </a>
 
         <a
           href="{{ '/terms/' | relative_url }}"
-          class="block rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          class="block rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-[#F5F0E6] hover:text-[#0B1F3A]"
         >
           Terms
         </a>
 
         <a
           href="{{ '/privacy-policy/' | relative_url }}"
-          class="block rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          class="block rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-[#F5F0E6] hover:text-[#0B1F3A]"
         >
           Privacy
         </a>
@@ -113,3 +133,59 @@
   </div>
 
 </header>
+
+
+<script>
+  (() => {
+
+    "use strict";
+
+    const links =
+      document.querySelectorAll(".g-nav-link");
+
+    const current =
+      window.location.pathname
+        .replace(/\/+$/, "") || "/";
+
+    links.forEach((link) => {
+
+      const href =
+        link.getAttribute("href");
+
+      if (!href) {
+        return;
+      }
+
+      let target;
+
+      try {
+
+        target =
+          new URL(
+            href,
+            window.location.origin
+          )
+          .pathname
+          .replace(/\/+$/, "") || "/";
+
+      } catch {
+
+        return;
+
+      }
+
+      if (target === current) {
+
+        link.classList.add("is-active");
+
+        link.setAttribute(
+          "aria-current",
+          "page"
+        );
+
+      }
+
+    });
+
+  })();
+</script>
