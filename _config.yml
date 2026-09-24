@@ -1,5 +1,8 @@
 title: "Gonardiya"
-description: "Gonardiya represents origin, heritage, intellectual identity, continuity and legacy."
+
+description: >
+  Gonardiya represents origin, heritage, intellectual identity,
+  continuity and legacy.
 
 lang: "en-IN"
 
@@ -9,22 +12,18 @@ author:
 logo: "/assets/favicon.svg"
 
 markdown: kramdown
+
 permalink: /:basename/
 
 timezone: Asia/Kolkata
 
-collections:
-  pages:
-    output: true
-    permalink: /:name/
-
 defaults:
   - scope:
       path: ""
-      values:
-        layout: default
-        lang: en-IN
-        robots: "index,follow"
+    values:
+      layout: default
+      lang: "en-IN"
+      robots: "index,follow"
 
   - scope:
       path: ""
