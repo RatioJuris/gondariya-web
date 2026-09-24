@@ -10,35 +10,42 @@
   content="light"
 >
 
-{% assign page_title = page.title | default: site.title %}
-{% assign page_description = page.description | default: site.description %}
-{% assign page_robots = page.robots | default: "index,follow" %}
+{% assign seo_title = page.title | default: site.title %}
+{% assign seo_description = page.description | default: site.description %}
+{% assign seo_robots = page.robots | default: "index,follow" %}
+{% assign canonical_path = page.canonical | default: page.url %}
 
 <title>
-  {{ page_title }}
-  {% unless page_title == site.title %}
+  {{ seo_title }}
+  {% unless seo_title == site.title %}
     | {{ site.title }}
   {% endunless %}
 </title>
 
 <meta
   name="description"
-  content="{{ page_description | strip_html | normalize_whitespace | escape }}"
+  content="{{ seo_description | strip_html | normalize_whitespace | escape }}"
 >
 
 {% if page.keywords %}
+
 <meta
   name="keywords"
   content="{{ page.keywords | join: ', ' | escape }}"
 >
+
 {% endif %}
 
 <meta
   name="robots"
-  content="{{ page_robots }}"
+  content="{{ seo_robots }}"
 >
 
-{% assign canonical_path = page.canonical | default: page.url %}
+<meta
+  name="author"
+  content="{{ page.author | default: site.author.name | default: site.title | escape }}"
+>
+
 <link
   rel="canonical"
   href="{{ canonical_path | absolute_url }}"
@@ -51,16 +58,19 @@
 >
 
 <meta
-  name="application-name"
-  content="{{ site.title }}"
->
-
-<meta
   name="theme-color"
   content="{{ page.theme_color | default: '#0B1F3A' }}"
 >
 
-<!-- Open Graph -->
+<meta
+  name="application-name"
+  content="{{ site.title }}"
+>
+
+
+<!-- =========================================================
+     OPEN GRAPH
+     ========================================================= -->
 
 <meta
   property="og:site_name"
@@ -69,12 +79,12 @@
 
 <meta
   property="og:title"
-  content="{{ page.og.title | default: page_title | escape }}"
+  content="{{ page.og.title | default: seo_title | escape }}"
 >
 
 <meta
   property="og:description"
-  content="{{ page.og.description | default: page_description | strip_html | normalize_whitespace | escape }}"
+  content="{{ page.og.description | default: seo_description | strip_html | normalize_whitespace | escape }}"
 >
 
 <meta
@@ -87,19 +97,15 @@
   content="{{ canonical_path | absolute_url }}"
 >
 
-{% if page.og.image %}
 <meta
   property="og:image"
-  content="{{ page.og.image | absolute_url }}"
+  content="{{ page.og.image | default: '/assets/gonardiya.png' | absolute_url }}"
 >
-{% else %}
-<meta
-  property="og:image"
-  content="{{ '/assets/gonardiya.png' | absolute_url }}"
->
-{% endif %}
 
-<!-- Twitter / X -->
+
+<!-- =========================================================
+     TWITTER / X
+     ========================================================= -->
 
 <meta
   name="twitter:card"
@@ -108,53 +114,53 @@
 
 <meta
   name="twitter:title"
-  content="{{ page.twitter.title | default: page_title | escape }}"
+  content="{{ page.twitter.title | default: seo_title | escape }}"
 >
 
 <meta
   name="twitter:description"
-  content="{{ page.twitter.description | default: page_description | strip_html | normalize_whitespace | escape }}"
+  content="{{ page.twitter.description | default: seo_description | strip_html | normalize_whitespace | escape }}"
 >
 
-{% if page.twitter.image %}
 <meta
   name="twitter:image"
-  content="{{ page.twitter.image | absolute_url }}"
-{% else %}
-<meta
-  name="twitter:image"
-  content="{{ '/assets/gonardiya.png' | absolute_url }}"
+  content="{{ page.twitter.image | default: '/assets/gonardiya.png' | absolute_url }}"
 >
-{% endif %}
 
-{% if page.author or site.author.name %}
-<meta
-  name="author"
-  content="{{ page.author | default: site.author.name | escape }}"
->
-{% endif %}
 
-<!-- Tailwind CSS v4 Browser CDN -->
+<!-- =========================================================
+     TAILWIND CSS V4
+     ========================================================= -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss-browser/4.3.3/index.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-<!-- Gonardiya design tokens -->
+
+<!-- =========================================================
+     GONARDIYA DESIGN SYSTEM
+     ========================================================= -->
 
 <style type="text/tailwindcss">
 
 @theme {
-  --color-gondariya-navy: #0B1F3A;
-  --color-gondariya-gold: #C89B3C;
-  --color-gondariya-ivory: #F5F0E6;
+
+  --color-gonardiya-navy: #0B1F3A;
+  --color-gonardiya-gold: #C89B3C;
+  --color-gonardiya-ivory: #F5F0E6;
+
 }
+
 
 @layer base {
 
   html {
     scroll-behavior: smooth;
+    background: #ffffff;
   }
 
   body {
+    margin: 0;
+    min-width: 320px;
+
     font-family:
       Inter,
       ui-sans-serif,
@@ -163,155 +169,965 @@
       BlinkMacSystemFont,
       "Segoe UI",
       sans-serif;
+
+    color: #172033;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
     background: #0B1F3A;
     color: #F5F0E6;
   }
+
 }
+
 
 @layer components {
 
-  .page-container {
-    width: min(
-      calc(100% - 2rem),
-      76rem
-    );
+
+  /* =========================================================
+     BACKGROUND
+     ========================================================= */
+
+  .gondariya-site {
+    position: relative;
+    overflow-x: hidden;
+
+    background:
+      linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #fbfcfe 46%,
+        #ffffff 100%
+      );
+  }
+
+
+  .g-bg-grid {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+      linear-gradient(
+        rgba(11, 31, 58, 0.028) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(11, 31, 58, 0.028) 1px,
+        transparent 1px
+      );
+
+    background-size:
+      72px 72px;
+
+    mask-image:
+      linear-gradient(
+        to bottom,
+        black,
+        transparent 88%
+      );
+  }
+
+
+  .g-orb {
+    position: absolute;
+
+    border-radius: 9999px;
+
+    filter: blur(65px);
+
+    pointer-events: none;
+
+    will-change: transform;
+
+    animation:
+      gondariyaFloat 16s ease-in-out infinite;
+  }
+
+
+  .g-orb-one {
+    width: 420px;
+    height: 420px;
+
+    top: -170px;
+    right: -100px;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(200, 155, 60, 0.34),
+        rgba(200, 155, 60, 0)
+      );
+  }
+
+
+  .g-orb-two {
+    width: 470px;
+    height: 470px;
+
+    top: 28%;
+    left: -240px;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(91, 75, 168, 0.22),
+        rgba(91, 75, 168, 0)
+      );
+
+    animation-delay: -5s;
+  }
+
+
+  .g-orb-three {
+    width: 380px;
+    height: 380px;
+
+    top: 56%;
+    right: -170px;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(34, 211, 238, 0.16),
+        rgba(34, 211, 238, 0)
+      );
+
+    animation-delay: -9s;
+  }
+
+
+  .g-orb-four {
+    width: 300px;
+    height: 300px;
+
+    bottom: -100px;
+    left: 35%;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(200, 155, 60, 0.12),
+        rgba(200, 155, 60, 0)
+      );
+
+    animation-delay: -12s;
+  }
+
+
+  @keyframes gondariyaFloat {
+
+    0%,
+    100% {
+      transform:
+        translate3d(0, 0, 0)
+        scale(1);
+    }
+
+    50% {
+      transform:
+        translate3d(18px, -22px, 0)
+        scale(1.06);
+    }
+
+  }
+
+
+  /* =========================================================
+     HEADER
+     ========================================================= */
+
+  .g-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    border-bottom: 1px solid rgba(11, 31, 58, 0.06);
+
+    background:
+      rgba(255, 255, 255, 0.76);
+
+    backdrop-filter:
+      blur(20px)
+      saturate(160%);
+
+    -webkit-backdrop-filter:
+      blur(20px)
+      saturate(160%);
+
+    transition:
+      box-shadow 250ms ease,
+      background-color 250ms ease,
+      border-color 250ms ease;
+  }
+
+
+  .g-header-inner {
+    width:
+      min(
+        calc(100% - 2rem),
+        1200px
+      );
+
+    min-height: 84px;
 
     margin-inline: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 2rem;
   }
 
-  .content-container {
-    width: min(
-      calc(100% - 2rem),
-      50rem
-    );
 
-    margin-inline: auto;
+  .g-logo-link {
+    position: relative;
+    display: block;
+
+    flex-shrink: 0;
   }
 
-  .markdown-content {
-    color: rgb(51 65 85);
-    font-size: 1rem;
-    line-height: 1.8;
+
+  .g-logo {
+    width: auto;
+    height: 42px;
+
+    object-fit: contain;
+
+    transition:
+      transform 280ms ease,
+      filter 280ms ease;
   }
 
-  .markdown-content h2 {
-    margin-top: 4rem;
-    margin-bottom: 1rem;
 
+  .g-logo-link:hover .g-logo {
+    transform: translateY(-1px) scale(1.015);
+  }
+
+
+  .g-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+
+  .g-nav-link {
+    position: relative;
+
+    color: #526078;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+      color 180ms ease;
+  }
+
+
+  .g-nav-link::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: -8px;
+
+    height: 2px;
+
+    border-radius: 9999px;
+
+    background:
+      linear-gradient(
+        90deg,
+        #C89B3C,
+        #7C5CFC
+      );
+
+    transform:
+      scaleX(0);
+
+    transform-origin: center;
+
+    transition:
+      transform 220ms
+      cubic-bezier(.22, 1, .36, 1);
+  }
+
+
+  .g-nav-link:hover {
     color: #0B1F3A;
+  }
+
+
+  .g-nav-link:hover::after,
+  .g-nav-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+
+  /* =========================================================
+     PAGE LANGUAGE
+     ========================================================= */
+
+  .g-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.22em;
+
+    color: #C89B3C;
+  }
+
+
+  .g-eyebrow-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 9999px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #C89B3C,
+        #7C5CFC
+      );
+
+    box-shadow:
+      0 0 0 5px
+      rgba(200, 155, 60, 0.09);
+  }
+
+
+  .g-pill {
+    display: inline-flex;
+    align-items: center;
+
+    border-radius: 9999px;
+
+    padding:
+      7px 12px;
+
+    border:
+      1px solid
+      rgba(11, 31, 58, 0.08);
+
+    background:
+      rgba(255, 255, 255, 0.72);
+
+    color:
+      rgba(11, 31, 58, 0.62);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+
+    box-shadow:
+      0 6px 20px
+      rgba(11, 31, 58, 0.04);
+
+    backdrop-filter:
+      blur(10px);
+  }
+
+
+  .g-spectrum-line {
+    position: relative;
+    height: 1px;
+
+    overflow: visible;
+
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        rgba(11, 31, 58, 0.08) 15%,
+        rgba(11, 31, 58, 0.08) 85%,
+        transparent
+      );
+  }
+
+
+  .g-spectrum-line span {
+    position: absolute;
+
+    left: 12%;
+    top: -1px;
+
+    width: 31%;
+    height: 3px;
+
+    border-radius: 9999px;
+
+    background:
+      linear-gradient(
+        90deg,
+        #C89B3C,
+        #7C5CFC,
+        #0B1F3A
+      );
+
+    box-shadow:
+      0 0 28px
+      rgba(124, 92, 252, 0.28);
+  }
+
+
+  /* =========================================================
+     HOME IDENTITY PANEL
+     ========================================================= */
+
+  .g-identity-panel {
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 2rem;
+
+    min-height: 440px;
+
+    isolation: isolate;
+
+    box-shadow:
+      0 35px 90px
+      rgba(11, 31, 58, 0.16),
+      inset 0 1px 0
+      rgba(255, 255, 255, 0.12);
+  }
+
+
+  .g-content-shell {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 2rem;
+
+    padding: 3rem;
+
+    background:
+      rgba(255, 255, 255, 0.84);
+
+    border:
+      1px solid
+      rgba(11, 31, 58, 0.07);
+
+    box-shadow:
+      0 30px 80px
+      rgba(11, 31, 58, 0.06);
+
+    backdrop-filter:
+      blur(16px);
+
+    -webkit-backdrop-filter:
+      blur(16px);
+  }
+
+
+  /* =========================================================
+     SIDE CARD
+     ========================================================= */
+
+  .g-side-card {
+    overflow: hidden;
+
+    border:
+      1px solid
+      rgba(11, 31, 58, 0.07);
+
+    border-radius: 1.5rem;
+
+    padding: 1.5rem;
+
+    background:
+      rgba(255, 255, 255, 0.76);
+
+    box-shadow:
+      0 20px 50px
+      rgba(11, 31, 58, 0.05);
+
+    backdrop-filter:
+      blur(14px);
+  }
+
+
+  .g-side-number {
+    display: flex;
+
+    width: 56px;
+    height: 56px;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #0B1F3A,
+        #5B4BA8
+      );
+
+    color: white;
 
     font-size: 1.5rem;
-    line-height: 1.25;
-    font-weight: 650;
+    font-weight: 700;
 
-    letter-spacing: -0.025em;
+    box-shadow:
+      0 15px 35px
+      rgba(11, 31, 58, 0.18);
   }
 
-  .markdown-content h3 {
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
 
-    color: #0B1F3A;
+  /* =========================================================
+     ARTICLE
+     ========================================================= */
 
-    font-size: 1.125rem;
-    line-height: 1.4;
-    font-weight: 650;
+  .g-article {
+    position: relative;
+
+    min-width: 0;
+
+    color:
+      rgb(71 85 105);
+
+    font-size:
+      1.02rem;
+
+    line-height:
+      1.9;
   }
 
-  .markdown-content p {
-    margin-top: 0;
-    margin-bottom: 1.35rem;
+
+  .g-article::before {
+    content: "";
+
+    position: absolute;
+
+    left: -25px;
+    top: 0;
+    bottom: 0;
+
+    width: 2px;
+
+    border-radius: 9999px;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(200, 155, 60, 0.8),
+        rgba(124, 92, 252, 0.35),
+        transparent
+      );
+
+    opacity: 0.8;
   }
 
-  .markdown-content ul,
-  .markdown-content ol {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
+
+  .g-article p {
+    margin:
+      0 0 1.55rem;
   }
 
-  .markdown-content li {
-    margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
+
+  .g-article h2 {
+    position: relative;
+
+    margin:
+      4.2rem 0 1.2rem;
+
+    color:
+      #0B1F3A;
+
+    font-size:
+      clamp(1.55rem, 2.8vw, 2.15rem);
+
+    line-height:
+      1.15;
+
+    font-weight:
+      750;
+
+    letter-spacing:
+      -0.045em;
   }
 
-  .markdown-content a {
-    color: #0B1F3A;
-    text-decoration-line: underline;
-    text-decoration-color: #C89B3C;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
+
+  .g-article h2::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 28px;
+    height: 3px;
+
+    margin-right: 12px;
+
+    vertical-align: middle;
+
+    border-radius: 9999px;
+
+    background:
+      linear-gradient(
+        90deg,
+        #C89B3C,
+        #7C5CFC
+      );
   }
 
-  .markdown-content a:hover {
-    text-decoration-thickness: 2px;
+
+  .g-article h3 {
+    margin:
+      3rem 0 0.85rem;
+
+    color:
+      #0B1F3A;
+
+    font-size:
+      1.15rem;
+
+    line-height:
+      1.35;
+
+    font-weight:
+      700;
+
+    letter-spacing:
+      -0.02em;
   }
 
-  .markdown-content strong {
-    color: #0B1F3A;
-    font-weight: 650;
+
+  .g-article h4 {
+    margin:
+      2rem 0 0.7rem;
+
+    color:
+      #0B1F3A;
+
+    font-size:
+      1rem;
+
+    font-weight:
+      700;
   }
 
-  .markdown-content blockquote {
-    margin: 2rem 0;
-    padding: 1rem 1.25rem;
 
-    border-left: 2px solid #C89B3C;
+  .g-article strong {
+    color:
+      #0B1F3A;
 
-    color: #334155;
-    background: #F8FAFC;
+    font-weight:
+      700;
   }
 
-  .markdown-content hr {
-    margin: 3rem 0;
-    border: 0;
-    border-top: 1px solid #E2E8F0;
+
+  .g-article a {
+    color:
+      #0B1F3A;
+
+    text-decoration:
+      underline;
+
+    text-decoration-color:
+      rgba(200, 155, 60, 0.65);
+
+    text-decoration-thickness:
+      1px;
+
+    text-underline-offset:
+      4px;
+
+    transition:
+      color 160ms ease,
+      text-decoration-color 160ms ease;
   }
 
-  .markdown-content code {
-    padding: 0.15rem 0.4rem;
 
-    border-radius: 0.35rem;
+  .g-article a:hover {
+    color:
+      #5B4BA8;
 
-    background: #F1F5F9;
-
-    color: #0B1F3A;
-
-    font-size: 0.9em;
+    text-decoration-color:
+      #5B4BA8;
   }
 
-  .markdown-content pre {
-    overflow-x: auto;
 
-    margin: 2rem 0;
-    padding: 1.25rem;
+  .g-article ul,
+  .g-article ol {
+    margin:
+      1rem 0 1.8rem;
 
-    border-radius: 0.9rem;
-
-    background: #0F172A;
-    color: #E2E8F0;
+    padding-left:
+      1.55rem;
   }
+
+
+  .g-article li {
+    margin:
+      0.55rem 0;
+  }
+
+
+  .g-article li::marker {
+    color:
+      #C89B3C;
+
+    font-weight:
+      700;
+  }
+
+
+  .g-article blockquote {
+    position: relative;
+
+    margin:
+      2.5rem 0;
+
+    padding:
+      1.5rem 1.75rem;
+
+    border:
+      1px solid
+      rgba(200, 155, 60, 0.18);
+
+    border-left:
+      3px solid
+      #C89B3C;
+
+    border-radius:
+      0 1rem 1rem 0;
+
+    background:
+      linear-gradient(
+        135deg,
+        rgba(245, 240, 230, 0.72),
+        rgba(255, 255, 255, 0.7)
+      );
+
+    color:
+      #334155;
+  }
+
+
+  .g-article hr {
+    margin:
+      3.5rem 0;
+
+    border:
+      0;
+
+    height:
+      1px;
+
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        rgba(11, 31, 58, 0.12),
+        transparent
+      );
+  }
+
+
+  .g-article code {
+    padding:
+      0.15rem 0.42rem;
+
+    border-radius:
+      0.4rem;
+
+    background:
+      rgba(11, 31, 58, 0.055);
+
+    color:
+      #0B1F3A;
+
+    font-size:
+      0.9em;
+  }
+
+
+  .g-article pre {
+    overflow-x:
+      auto;
+
+    margin:
+      2rem 0;
+
+    padding:
+      1.35rem;
+
+    border-radius:
+      1rem;
+
+    background:
+      #081525;
+
+    color:
+      #E2E8F0;
+
+    box-shadow:
+      0 20px 45px
+      rgba(11, 31, 58, 0.16);
+  }
+
+
+  .g-article img {
+    max-width:
+      100%;
+
+    height:
+      auto;
+
+    border-radius:
+      1.2rem;
+  }
+
+
+  /* =========================================================
+     CTA BUTTON
+     ========================================================= */
+
+  .g-button {
+    position: relative;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+
+  .g-button::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -2px;
+
+    background:
+      linear-gradient(
+        120deg,
+        transparent 20%,
+        rgba(255,255,255,0.24) 50%,
+        transparent 80%
+      );
+
+    transform:
+      translateX(-120%);
+
+    transition:
+      transform 700ms
+      cubic-bezier(.22, 1, .36, 1);
+  }
+
+
+  .g-button:hover {
+    transform:
+      translateY(-2px);
+
+    box-shadow:
+      0 20px 40px
+      rgba(11, 31, 58, 0.22);
+  }
+
+
+  .g-button:hover::before {
+    transform:
+      translateX(120%);
+  }
+
+
+  /* =========================================================
+     MOBILE
+     ========================================================= */
+
+  @media (max-width: 767px) {
+
+    .g-header-inner {
+      min-height: 72px;
+    }
+
+    .g-logo {
+      height: 34px;
+    }
+
+    .g-content-shell {
+      padding: 1.5rem;
+      border-radius: 1.4rem;
+    }
+
+    .g-article {
+      font-size: 1rem;
+    }
+
+    .g-article::before {
+      display: none;
+    }
+
+  }
+
+
+  /* =========================================================
+     REDUCED MOTION
+     ========================================================= */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+
+  }
+
 }
 
 </style>
 
-<!-- JSON-LD -->
+
+<!-- =========================================================
+     OPTIONAL CUSTOM JSON-LD
+     ========================================================= -->
 
 {% if page.jsonld %}
+
 <script type="application/ld+json">
 {{ page.jsonld | jsonify }}
 </script>
+
 {% else %}
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": {{ page_title | jsonify }},
-  "description": {{ page_description | strip_html | normalize_whitespace | jsonify }},
+  "name": {{ seo_title | jsonify }},
+  "description": {{ seo_description | strip_html | normalize_whitespace | jsonify }},
   "url": {{ canonical_path | absolute_url | jsonify }}
 }
 </script>
+
 {% endif %}
